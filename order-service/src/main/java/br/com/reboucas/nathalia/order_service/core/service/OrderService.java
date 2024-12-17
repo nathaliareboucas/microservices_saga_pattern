@@ -1,6 +1,5 @@
 package br.com.reboucas.nathalia.order_service.core.service;
 
-import br.com.reboucas.nathalia.order_service.core.document.Event;
 import br.com.reboucas.nathalia.order_service.core.document.Order;
 import br.com.reboucas.nathalia.order_service.core.dto.OrderRequest;
 import br.com.reboucas.nathalia.order_service.core.producer.SagaProducer;
