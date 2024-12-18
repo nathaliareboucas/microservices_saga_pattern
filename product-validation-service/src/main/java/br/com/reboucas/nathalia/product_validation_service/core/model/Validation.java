@@ -30,7 +30,7 @@ public class Validation {
     private boolean success;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
@@ -38,7 +38,7 @@ public class Validation {
     @PrePersist
     public void prePersist() {
         var now = LocalDateTime.now();
-        createAt = now;
+        createdAt = now;
         updatedAt = now;
     }
 
