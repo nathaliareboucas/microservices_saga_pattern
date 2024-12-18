@@ -8,7 +8,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +29,22 @@ public class Event {
     private String status;
     private List<History> eventHistory;
     private LocalDateTime createdAt;
+
+    public void handleEventStatus(String message, String source) {
+        this.status = "SUCCESS";
+        this.source = source;
+        this.addToHistory(message, source);
+    }
+
+    private void addToHistory(String message, String source) {
+        if (isEmpty(eventHistory)) {
+            eventHistory = new ArrayList<>();
+        }
+        eventHistory.add(History.builder()
+                .source(source)
+                .status(this.status)
+                .message(message)
+                .createdAt(LocalDateTime.now())
+                .build());
+    }
 }

@@ -32,6 +32,8 @@ public class OrderService {
                         UUID.randomUUID())
                 )
                 .build();
+        order.validateProducts();
+        order.calculateTotals();
         orderRepository.save(order);
         emitEvent(order);
         return order;

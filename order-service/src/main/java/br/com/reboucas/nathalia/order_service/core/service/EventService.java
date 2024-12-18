@@ -18,6 +18,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @AllArgsConstructor
 @Slf4j
 public class EventService {
+    private static final String CURRENT_SOURCE = "ORDER_SERVICE";
     private final EventRepository repository;
 
     public Event createPayload(Order order) {
@@ -27,6 +28,7 @@ public class EventService {
                 .payload(order)
                 .createdAt(LocalDateTime.now())
                 .build();
+        event.handleEventStatus("Order created!", CURRENT_SOURCE);
         repository.save(event);
         return event;
     }
