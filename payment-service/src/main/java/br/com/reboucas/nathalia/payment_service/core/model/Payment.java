@@ -1,5 +1,6 @@
 package br.com.reboucas.nathalia.payment_service.core.model;
 
+import br.com.reboucas.nathalia.payment_service.config.exception.ValidationException;
 import br.com.reboucas.nathalia.payment_service.core.enums.EPaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -56,5 +57,11 @@ public class Payment {
     @PreUpdate
     public void preUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public void validateTotalAmount() {
+        if (this.totalAmount < 0.1) {
+            throw new ValidationException("The minimum amount available is 0.1");
+        }
     }
 }
