@@ -18,7 +18,7 @@ public class OrderInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)
     private Inventory inventory;
 
