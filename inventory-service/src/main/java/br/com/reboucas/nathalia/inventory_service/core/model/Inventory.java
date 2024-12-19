@@ -1,5 +1,6 @@
 package br.com.reboucas.nathalia.inventory_service.core.model;
 
+import br.com.reboucas.nathalia.inventory_service.config.exception.ValidationException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +22,18 @@ public class Inventory {
 
     @Column(nullable = false)
     private int available;
+
+    public void checkAvailability(int orderQuantity) {
+        if (orderQuantity > available) {
+            throw new ValidationException("Product is out of stock!");
+        }
+    }
+
+    public void toGoDown(int orderQuantity) {
+        available = available - orderQuantity;
+    }
+
+    public void returnPreviousValues(int oldQuantity) {
+        available = oldQuantity;
+    }
 }
