@@ -36,7 +36,7 @@ public class PaymentService {
         } catch (Exception e) {
             log.error("Error trying to make payment:", e);
             event.handleEventStatus(ESagaStatus.ROLLBACK_PENDING,
-                    "Fail to realize payment!", CURRENT_SOURCE);
+                    "Fail to realize payment! ".concat(e.getMessage()), CURRENT_SOURCE);
         }
         producer.sendEvent(jsonUtil.toJson(event));
     }
