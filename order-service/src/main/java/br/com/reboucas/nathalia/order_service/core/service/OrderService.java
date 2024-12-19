@@ -34,6 +34,7 @@ public class OrderService {
                 .build();
         order.validateProducts();
         order.calculateTotals();
+        order.validateTotalAmount();
         orderRepository.save(order);
         emitEvent(order);
         return order;

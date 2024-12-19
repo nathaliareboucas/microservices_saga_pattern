@@ -40,6 +40,12 @@ public class Order {
         this.totalItems = calculateTotalItems();
     }
 
+    public void validateTotalAmount() {
+        if (this.totalAmount < 0.1) {
+            throw new ValidationException("The minimum amount available is 0.1");
+        }
+    }
+
     private double calculateAmount() {
         return products.stream()
                 .map(orderProduct -> orderProduct.getQuantity() *
