@@ -8,7 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +26,22 @@ public class Event {
     private ESagaStatus status;
     private List<History> eventHistory;
     private LocalDateTime createdAt;
+
+    public void handleEventStatus(ESagaStatus sagaStatus, String message, EEventSource source) {
+        this.status = sagaStatus;
+        this.source = source;
+        this.addToHistory(message, source);
+    }
+
+    private void addToHistory(String message, EEventSource source) {
+        if (isEmpty(eventHistory)) {
+            eventHistory = new ArrayList<>();
+        }
+        eventHistory.add(History.builder()
+                .source(source)
+                .status(this.status)
+                .message(message)
+                .createdAt(LocalDateTime.now())
+                .build());
+    }
 }
